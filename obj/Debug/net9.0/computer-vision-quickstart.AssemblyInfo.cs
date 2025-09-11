@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("computer-vision-quickstart")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9667a436c767e3f94252834b3bbd8caf523c1722")]
 [assembly: System.Reflection.AssemblyProductAttribute("computer-vision-quickstart")]
 [assembly: System.Reflection.AssemblyTitleAttribute("computer-vision-quickstart")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

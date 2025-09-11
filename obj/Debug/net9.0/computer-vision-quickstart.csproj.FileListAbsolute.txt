@@ -18,3 +18,4 @@
 /Users/Western/Desktop/cv-app/computer-vision-quickstart/obj/Debug/net9.0/computer-vision-quickstart.pdb
 /Users/Western/Desktop/cv-app/computer-vision-quickstart/obj/Debug/net9.0/computer-vision-quickstart.genruntimeconfig.cache
 /Users/Western/Desktop/cv-app/computer-vision-quickstart/obj/Debug/net9.0/ref/computer-vision-quickstart.dll
+/Users/Western/Desktop/cv-app/computer-vision-quickstart/obj/Debug/net9.0/computer-vision-quickstart.sourcelink.json

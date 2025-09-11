@@ -1,74 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 using System.Threading.Tasks;
 using System.IO;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Threading;
-using System.Linq;
 
 namespace ComputerVisionQuickstart
 {
     class Program
     {
-        // Add your Computer Vision key and endpoint
-        static string key = Environment.GetEnvironmentVariable("VISION_KEY");
-        static string endpoint = Environment.GetEnvironmentVariable("VISION_ENDPOINT");
-
-        // URL image used for analyzing an image (image of puppy)
-        private const string ANALYZE_URL_IMAGE = "https://raw.githubusercontent.com/Azure-Samples/cognitive-services-sample-data-files/master/ComputerVision/Images/landmark.jpg";
-
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Azure Cognitive Services Computer Vision - .NET quickstart example");
-            Console.WriteLine();
+            Console.WriteLine("Histoview OCR Demo\n");
 
-            // Create a client
-            ComputerVisionClient client = Authenticate(endpoint, key);
+            var client = ComputerVisionService.Authenticate();
 
-            // Analyze an image to get features and other properties.
-            AnalyzeImageUrl(client, ANALYZE_URL_IMAGE).Wait();
-        }
+            string inputFile = "scans/with_the_colors_WWI_letter.jpg";
+            string preprocessedFile = "scans/preprocessed_with_the_colors_WWI_letter.jpg";
 
-        /*
-         * AUTHENTICATE
-         * Creates a Computer Vision client used by each example.
-         */
-        public static ComputerVisionClient Authenticate(string endpoint, string key)
-        {
-            ComputerVisionClient client =
-              new ComputerVisionClient(new ApiKeyServiceClientCredentials(key))
-              { Endpoint = endpoint };
-            return client;
-        }
-       
-        public static async Task AnalyzeImageUrl(ComputerVisionClient client, string imageUrl)
-        {
-            Console.WriteLine("----------------------------------------------------------");
-            Console.WriteLine("ANALYZE IMAGE - URL");
-            Console.WriteLine();
+            // Preprocess the image
+            ImagePreprocessor.Preprocess(inputFile, preprocessedFile);
 
-            // Creating a list that defines the features to be extracted from the image. 
+            Console.WriteLine($"Processing preprocessed file: {preprocessedFile}");
 
-            List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>()
-            {
-                VisualFeatureTypes.Tags
-            };
+            string transcription = await ComputerVisionService.ReadHandwrittenTextFromFile(client, preprocessedFile);
 
-            Console.WriteLine($"Analyzing the image {Path.GetFileName(imageUrl)}...");
-            Console.WriteLine();
-            // Analyze the URL image 
-            ImageAnalysis results = await client.AnalyzeImageAsync(imageUrl, visualFeatures: features);
+            Console.WriteLine("\n--- Transcription Result ---");
+            Console.WriteLine(transcription);
 
-            // Image tags and their confidence score
-            Console.WriteLine("Tags:");
-            foreach (var tag in results.Tags)
-            {
-                Console.WriteLine($"{tag.Name} {tag.Confidence}");
-            }
-            Console.WriteLine();
+            // Optional: save to text file
+            File.WriteAllText($"output_{Path.GetFileNameWithoutExtension(inputFile)}.txt", transcription);
         }
     }
 }
