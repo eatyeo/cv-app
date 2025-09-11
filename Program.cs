@@ -12,8 +12,8 @@ namespace ComputerVisionQuickstart
 
             var client = ComputerVisionService.Authenticate();
 
-            string inputFile = "scans/with_the_colors_WWI_letter.jpg";
-            string preprocessedFile = "scans/preprocessed_with_the_colors_WWI_letter.jpg";
+            string inputFile = "scans/headquarters.jpg";
+            string preprocessedFile = "scans/preprocessed_headquarters.jpg";
 
             // Preprocess the image
             ImagePreprocessor.Preprocess(inputFile, preprocessedFile);

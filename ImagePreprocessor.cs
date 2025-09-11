@@ -1,5 +1,4 @@
 using OpenCvSharp;
-
 public static class ImagePreprocessor
 {
     public static void Preprocess(string inputPath, string outputPath)
